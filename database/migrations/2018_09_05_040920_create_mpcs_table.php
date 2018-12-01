@@ -15,16 +15,23 @@ class CreateMpcsTable extends Migration
     {
         Schema::create('mpcs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code')->unique();
             $table->date('registration_date');
-            $table->string('ktp');
+            $table->string('code')->unique();//nomor form
+            $table->string('member_no')->unique();
             $table->string('name');
+            $table->string('idcard')->unique();
+            $table->string('status');
             $table->string('gender');
-            $table->string('address');
             $table->date('birth_date');
-            $table->string('phone');
-            $table->string('province');
-            $table->string('district');
+            $table->string('address');
+            $table->string('postcode');
+            $table->string('city');
+            $table->string('state');
+            $table->string('house_phone')->nullable();
+            $table->string('mobile_phone')->nullable();
+            $table->string('contact_method')->nullable();
+            $table->string('fb_name')->nullable();
+            $table->string('email')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

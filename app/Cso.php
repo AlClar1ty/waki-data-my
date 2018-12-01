@@ -29,9 +29,4 @@ class Cso extends Model
     {
         return $this->hasMany('App\DataOutsite');
     }
-
-    public function mpc()
-    {
-        return $this->hasMany('App\Mpc');
-    }
 }

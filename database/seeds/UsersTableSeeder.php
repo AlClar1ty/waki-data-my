@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
         	'name' => 'ADMIN',
         	'username' => 'ADMIN',
         	'password' => Hash::make('metro299admin'),
-        	'branch_id' => '23', //darmo park
+        	'branch_id' => '6', //darmo park
         	'permissions' => json_encode([
                 //MPC
         		'add-mpc' => true,
@@ -85,7 +85,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'SUPERVISOR',
             'username' => 'SUPERVISOR',
             'password' => Hash::make('123123'),
-            'branch_id' => '23', //darmo park
+            'branch_id' => '6', //darmo park
             'permissions' => json_encode([
                 //MPC
                 'add-mpc' => false,
@@ -153,7 +153,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'OPERATOR',
             'username' => 'OPERATOR',
             'password' => Hash::make('123123'),
-            'branch_id' => '23', //darmo park
+            'branch_id' => '6', //darmo park
             'permissions' => json_encode([
                 //MPC
                 'add-mpc' => false,

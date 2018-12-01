@@ -42,7 +42,7 @@
         <ul class="nav nav-tabs">
             @if(Gate::check('find-data-undangan') || Gate::check('browse-data-undangan') || Gate::check('add-data-undangan'))
             <li class="nav-item">
-                <a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1" aria-selected="true" onclick="ShowList('1')">Data Undangan</a>
+                <a class="nav-link" role="tab" data-toggle="tab" href="#tab-1" aria-selected="true" onclick="ShowList('1')">Data Undangan</a>
             </li>
             @endif
             @if(Gate::check('find-data-outsite') || Gate::check('browse-data-outsite') || Gate::check('add-data-outsite'))
@@ -57,7 +57,7 @@
             @endif
             @if(Gate::check('find-mpc') || Gate::check('browse-mpc') || Gate::check('add-mpc'))
             <li class="nav-item">
-                <a class="nav-link" role="tab" data-toggle="tab" href="#tab-4" aria-selected="true"onclick="ShowList('4')">MPC</a>
+                <a class="nav-link active" role="tab" data-toggle="tab" href="#tab-4" aria-selected="true"onclick="ShowList('4')">Membership</a>
             </li>
             @endif
         </ul>
@@ -558,7 +558,7 @@
         <div class="tab-pane" role="tabpanel" id="tab-4">
             @if(Gate::check('find-mpc'))
             <form id="actionFindMpc" name="FindMpc" action="{{ route('find_mpc') }}" style="display: block;float: inherit;">
-                <h1 style="text-align: center;color: rgb(80, 94, 108);">Find MPC</h1>
+                <h1 style="text-align: center;color: rgb(80, 94, 108);">Find Membership</h1>
                 <br>
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -579,7 +579,7 @@
             <form id="actionAddMpc" name="frmAddMpc" method="POST" action="{{ route('store_mpc') }}">
                 {{ csrf_field() }}
 
-                <h1 class="text-center" style="margin-bottom: .5rem;">Add MPC</h1>
+                <h1 class="text-center" style="margin-bottom: .5rem;">Add Membership</h1>
                 <br>
                 <div class="form-group">
                     <span>REGISTRATION DATE</span>
@@ -589,29 +589,36 @@
                     </span>
                 </div>
                 <div class="form-group frm-group-select">
-                    <span>MPC CODE</span>
-                    <input type="text" id="txtcode-mpc" class="text-uppercase form-control" name="code" placeholder="MPC CODE" required>
+                    <span style="display: block;">MEMBERSHIP NO</span>
+                    <input type="text" id="txtformno-mpc" class="text-uppercase form-control" name="form_no" placeholder="899/999" required style="width: 30%; display: inline;" maxlength="3">
+                    <input type="text" id="txtmemberno-mpc" class="text-uppercase form-control" name="member_no" placeholder="FORM NO" required style="width: 68%; display: inline;">
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
                 </div>
                 <div class="form-group frm-group-select select-right">
-                    <span>KTP</span>
-                    <input type="number" id="txtktp-mpc" class="form-control text-uppercase" name="ktp"  placeholder="KTP" required>
+                    <span>IDENTITY CARD</span>
+                    <input type="number" id="txtidcard-mpc" class="form-control text-uppercase" name="idcard"  placeholder="IDCARD" required>
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
                 </div>
                 <div class="form-group">
-                    <span>NAME</span>
-                    <input type="text" name="name" class="text-uppercase form-control" placeholder="NAME" required>
+                    <span>FULL NAME</span>
+                    <input type="text" name="name" class="text-uppercase form-control" placeholder="FULL NAME" required>
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
                 </div>
                 <div class="form-group frm-group-select">
-                    <span>BIRTH DATE</span>
-                    <input type="date" name="birth_date" class="text-uppercase form-control"required>
+                    <span>STATUS</span>
+                    <select class="text-uppercase form-control" name="status" required>
+                        <optgroup label="Status">
+                            <option value="" disabled selected>SELECT STATUS</option>
+                            <option value="MARIED">MARIED</option>
+                            <option value="SINGLE">SINGLE</option>
+                        </optgroup>
+                    </select>
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
@@ -621,10 +628,17 @@
                     <select class="text-uppercase form-control" name="gender" required>
                         <optgroup label="Gender">
                             <option value="" disabled selected>SELECT GENDER</option>
-                            <option value="PRIA">PRIA</option>
-                            <option value="WANITA">WANITA</option>
+                            <option value="MALE">MALE</option>
+                            <option value="FEMALE">FEMALE</option>
                         </optgroup>
                     </select>
+                    <span class="invalid-feedback">
+                        <strong></strong>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <span>BIRTH DATE</span>
+                    <input type="date" name="birth_date" class="text-uppercase form-control"required>
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
@@ -648,6 +662,42 @@
                     </span>
                 </div>
                 <div class="form-group frm-group-select select-right">
+                    <span>STATE</span>
+                    <select id="txtstate-mpc" class="form-control text-uppercase" name="state"required>
+                        <optgroup label="State">
+                            <option value="" selected disabled>SELECT STATE</option>
+                        </optgroup>
+                    </select>
+                    <span class="invalid-feedback">
+                        <strong></strong>
+                    </span>
+                </div>
+
+                <!-- Khusus untuk Indo untuk sementara -->
+                <div class="form-group frm-group-select">
+                    <span>CITY</span>
+                    <select id="txtcity-mpc" class="text-uppercase form-control" name="city" required>
+                        <optgroup label="City">
+                            <option disabled selected>SELECT STATE FIRST</option>
+                        </optgroup>
+                    </select>
+                    <span class="invalid-feedback">
+                        <strong></strong>
+                    </span>
+                </div>
+                <div class="form-group frm-group-select select-right">
+                    <span>POSTCODE</span>
+                    <select id="txtpostcode-mpc" class="form-control text-uppercase" name="postcode" required>
+                        <optgroup label="Postcode">
+                            <option disabled selected>SELECT CITY FIRST</option>
+                        </optgroup>
+                    </select>
+                    <span class="invalid-feedback">
+                        <strong></strong>
+                    </span>
+                </div>
+
+                <div class="form-group">
                     <span>BRANCH</span>
                     <select id="txtbranch-mpc" class="text-uppercase form-control" name="branch" required>
                         <optgroup label="Branch">
@@ -665,56 +715,6 @@
                             @cannot('all-branch-mpc')
                                 <option value="{{Auth::user()->branch_id}}">{{Auth::user()->branch['name']}}</option>
                             @endcan
-                        </optgroup>
-                    </select>
-                    <span class="invalid-feedback">
-                        <strong></strong>
-                    </span>
-                </div>
-
-
-                <!-- CSO -->
-                <div class="form-group">
-                    <span>CSO</span>
-                    <select id="txtcso-mpc" class="text-uppercase form-control" name="cso" required>
-                        <optgroup label="Cso">
-                            <option value="" selected disabled>SELECT YOUR OPTION</option>
-                                @can('all-country-cso')
-                                    @foreach ($csos as $cso)
-                                        <option value="{{$cso->id}}">{{$cso->name}} - {{$cso->code}}</option>
-                                    @endforeach
-                                @endcan
-                                @cannot('all-country-cso')
-                                    @foreach ($csos as $cso)
-                                        @if($cso->branch['country'] == Auth::user()->branch['country'])
-                                            <option value="{{$cso->id}}">{{$cso->name}} - {{$cso->code}}</option>
-                                        @endif
-                                    @endforeach
-                                @endcan
-                        </optgroup>
-                    </select>
-                    <span class="invalid-feedback">
-                        <strong></strong>
-                    </span>
-                </div>
-
-                <!-- Khusus untuk Indo untuk sementara -->
-                <div class="form-group frm-group-select">
-                    <span>PROVINCE</span>
-                    <select id="txtprovince-mpc" class="text-uppercase form-control" name="province" required>
-                        <optgroup label="Province">
-                            @include('etc.select-province')
-                        </optgroup>
-                    </select>
-                    <span class="invalid-feedback">
-                        <strong></strong>
-                    </span>
-                </div>
-                <div class="form-group frm-group-select select-right">
-                    <span>DISTRICT</span>
-                    <select id="txtdistrict-mpc" class="form-control text-uppercase" name="district"required>
-                        <optgroup label="District">
-                            <option disabled selected>SELECT PROVINCE FIRST</option>
                         </optgroup>
                     </select>
                     <span class="invalid-feedback">
@@ -2303,34 +2303,11 @@
     ///////////////////////////////////////////////////
 
     $(document).ready(function () {
-        var url = window.location.href;
+        $("a[href='#tab-4']").addClass("active");
+        $("#tab-4").addClass("active");
+        ShowList(4);
 
-        //Jika ada search (submit), ketika refresh langsung menuju tab tertentu
-        //Default akan ke tab Undangan
-        if(url.includes("keywordDataOutsite"))
-        {
-            $("a[href='#tab-1']").removeClass("active");
-            $("a[href='#tab-2']").addClass("active");
-            $("#tab-1").removeClass("active");
-            $("#tab-2").addClass("active");
-            ShowList(2);
-        }
-        else if(url.includes("keywordDataTherapy"))
-        {
-            $("a[href='#tab-1']").removeClass("active");
-            $("a[href='#tab-3']").addClass("active");
-            $("#tab-1").removeClass("active");
-            $("#tab-3").addClass("active");
-            ShowList(3);
-        }
-        else if(url.includes("keywordMpc"))
-        {
-            $("a[href='#tab-1']").removeClass("active");
-            $("a[href='#tab-4']").addClass("active");
-            $("#tab-1").removeClass("active");
-            $("#tab-4").addClass("active");
-            ShowList(4);
-        }
+        var url = window.location.href;
 
         //$('#modal-DataUndangan').modal('show');
         /*METHOD - METHOD UMUM ATAU KESELURUHAN

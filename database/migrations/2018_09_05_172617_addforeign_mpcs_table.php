@@ -18,8 +18,6 @@ class AddforeignMpcsTable extends Migration
             $table->foreign('branch_id')->references('id')->on('branches');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('cso_id')->unsigned();
-            $table->foreign('cso_id')->references('id')->on('csos');
         });
     }
 
@@ -35,8 +33,6 @@ class AddforeignMpcsTable extends Migration
             $table->dropColumn('branch_id');
             $table->dropForeign(['user_id']);
             $table->dropColumn('user_id');
-            $table->dropForeign(['cso_id']);
-            $table->dropColumn('cso_id');
         });
     }
 }
