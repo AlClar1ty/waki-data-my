@@ -7,6 +7,7 @@ use App\Branch;
 use App\Cso;
 // use App\Http\Requests\StoreBranch as StoreBranchRequest;
 use Validator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 
@@ -22,6 +23,19 @@ class AjaxController extends Controller
         $csos = Cso::where('branch_id', $request->branch_id)->get();
         return response()->json($csos);
     }
+
+    ///////////////KHUSUS STATE, CITY, and POSTCODE MALAYSIA///////////////
+    public function selectCity(Request $request)
+    {
+        $city = DB::table('postcode')->where('state',$request->state)->distinct()->get(['city']);
+        return response()->json($city);
+    }
+    public function selectPostcode(Request $request)
+    {
+        $postcode = DB::table('postcode')->where('city',$request->city)->get(['postcode']);
+        return response()->json($postcode);
+    }
+    ///////////////////////////////////////////////////////////////////////
 
     public function checkBranchCode(Request $request)
     {

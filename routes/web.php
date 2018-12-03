@@ -195,6 +195,12 @@ Route::post('/checkBranchCode', 'AjaxController@checkBranchCode')
 Route::post('/checkChangePassword', 'AjaxController@checkChangePassword')
     ->name('check-change-password');
 
+Route::post('/selectCity', 'AjaxController@selectCity')
+    ->name('select-city');
+
+Route::post('/selectPostcode', 'AjaxController@selectPostcode')
+    ->name('select-postcode');
+
 // Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::get('/', 'MemberController@index')->middleware('auth');

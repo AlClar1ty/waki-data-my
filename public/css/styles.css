@@ -176,3 +176,13 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none;
 }
+
+.loading-button{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.loading-button i {
+    opacity: 0;
+}

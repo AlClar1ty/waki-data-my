@@ -61,7 +61,7 @@
             </li>
             @endif
         </ul>
-        <div class="tab-pane active" role="tabpanel" id="tab-1">
+        <div class="tab-pane" role="tabpanel" id="tab-1">
             @if(Gate::check('find-data-undangan'))
             <form action="{{ url()->current() }}" style="display: block;float: inherit;">
                 <h1 style="text-align: center;color: rgb(80, 94, 108);">Find Data Undangan</h1>
@@ -555,7 +555,7 @@
             @endif
 
         </div>
-        <div class="tab-pane" role="tabpanel" id="tab-4">
+        <div class="tab-pane active" role="tabpanel" id="tab-4">
             @if(Gate::check('find-mpc'))
             <form id="actionFindMpc" name="FindMpc" action="{{ route('find_mpc') }}" style="display: block;float: inherit;">
                 <h1 style="text-align: center;color: rgb(80, 94, 108);">Find Membership</h1>
@@ -590,15 +590,15 @@
                 </div>
                 <div class="form-group frm-group-select">
                     <span style="display: block;">MEMBERSHIP NO</span>
-                    <input type="text" id="txtformno-mpc" class="text-uppercase form-control" name="form_no" placeholder="899/999" required style="width: 30%; display: inline;" maxlength="3">
-                    <input type="text" id="txtmemberno-mpc" class="text-uppercase form-control" name="member_no" placeholder="FORM NO" required style="width: 68%; display: inline;">
+                    <input type="text" id="txtformno-mpc" class="text-uppercase form-control" name="form_no" placeholder="899/999" required style="width: 30%; display: inline;" maxlength="3" onkeypress="return isNumberKey(event)">
+                    <input type="number" id="txtmemberno-mpc" class="text-uppercase form-control" name="member_no" placeholder="FORM NO" required style="width: 68%; display: inline;">
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
                 </div>
                 <div class="form-group frm-group-select select-right">
                     <span>IDENTITY CARD</span>
-                    <input type="number" id="txtidcard-mpc" class="form-control text-uppercase" name="idcard"  placeholder="IDCARD" required>
+                    <input type="text" id="txtidcard-mpc" class="form-control text-uppercase" name="idcard"  placeholder="IDCARD/PASSPORT/ETC" required>
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
@@ -612,12 +612,10 @@
                 </div>
                 <div class="form-group frm-group-select">
                     <span>STATUS</span>
-                    <select class="text-uppercase form-control" name="status" required>
-                        <optgroup label="Status">
-                            <option value="" disabled selected>SELECT STATUS</option>
-                            <option value="MARIED">MARIED</option>
-                            <option value="SINGLE">SINGLE</option>
-                        </optgroup>
+                    <select class="text-uppercase form-control" name="status">
+                        <option disabled selected value="">SELECT STATUS</option>
+                        <option value="MARIED">MARRIED</option>
+                        <option value="SINGLE">SINGLE</option>
                     </select>
                     <span class="invalid-feedback">
                         <strong></strong>
@@ -626,11 +624,9 @@
                 <div class="form-group frm-group-select select-right">
                     <span>GENDER</span>
                     <select class="text-uppercase form-control" name="gender" required>
-                        <optgroup label="Gender">
-                            <option value="" disabled selected>SELECT GENDER</option>
-                            <option value="MALE">MALE</option>
-                            <option value="FEMALE">FEMALE</option>
-                        </optgroup>
+                        <option disabled selected value="">SELECT GENDER</option>
+                        <option value="MALE">MALE</option>
+                        <option value="FEMALE">FEMALE</option>
                     </select>
                     <span class="invalid-feedback">
                         <strong></strong>
@@ -638,7 +634,7 @@
                 </div>
                 <div class="form-group">
                     <span>BIRTH DATE</span>
-                    <input type="date" name="birth_date" class="text-uppercase form-control"required>
+                    <input type="date" name="birth_date" class="text-uppercase form-control" required="">
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
@@ -663,10 +659,24 @@
                 </div>
                 <div class="form-group frm-group-select select-right">
                     <span>STATE</span>
-                    <select id="txtstate-mpc" class="form-control text-uppercase" name="state"required>
-                        <optgroup label="State">
-                            <option value="" selected disabled>SELECT STATE</option>
-                        </optgroup>
+                    <select id="txtstate-mpc" class="form-control text-uppercase" name="state">
+                        <option value="" selected="selected" disabled="disabled">SELECT STATE</option>
+                        <option value="PERLIS">PERLIS</option> 
+                        <option value="PENANG">PENANG</option>
+                        <option value="KEDAH">KEDAH</option> 
+                        <option value="KELANTAN">KELANTAN</option>
+                        <option value="TERENGGANU">TERENGGANU</option> 
+                        <option value="PAHANG">PAHANG</option>
+                        <option value="PERAK">PERAK</option> 
+                        <option value="SELANGOR">SELANGOR</option>
+                        <option value="WP KUALA LUMPUR">WP KUALA LUMPUR</option>
+                        <option value="WP PUTRAJAYA">WP PUTRAJAYA</option>
+                        <option value="NEGERI SEMBILAN">NEGERI SEMBILAN</option> 
+                        <option value="MELAKA">MELAKA</option> 
+                        <option value="JOHOR">JOHOR</option> 
+                        <option value="WP LABUAN">WP LABUAN</option> 
+                        <option value="SABAH">SABAH</option>
+                        <option value="SERAWAK">SERAWAK</option>
                     </select>
                     <span class="invalid-feedback">
                         <strong></strong>
@@ -676,22 +686,14 @@
                 <!-- Khusus untuk Indo untuk sementara -->
                 <div class="form-group frm-group-select">
                     <span>CITY</span>
-                    <select id="txtcity-mpc" class="text-uppercase form-control" name="city" required>
-                        <optgroup label="City">
-                            <option disabled selected>SELECT STATE FIRST</option>
-                        </optgroup>
-                    </select>
+                    <input type="text" id="txtcity-mpc" class="form-control text-uppercase" name="city"  placeholder="CITY" required>
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
                 </div>
                 <div class="form-group frm-group-select select-right">
                     <span>POSTCODE</span>
-                    <select id="txtpostcode-mpc" class="form-control text-uppercase" name="postcode" required>
-                        <optgroup label="Postcode">
-                            <option disabled selected>SELECT CITY FIRST</option>
-                        </optgroup>
-                    </select>
+                    <input type="text" id="txtpostcode-mpc" class="form-control text-uppercase" name="postcode"  placeholder="POSTCODE" required>
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
@@ -721,10 +723,44 @@
                         <strong></strong>
                     </span>
                 </div>
-
                 <div class="form-group">
-                    <span>PHONE</span>
-                    <input type="number" name="phone" class="form-control" placeholder="0XXXXXXXXXXX" required>
+                    <span>F/B NAME</span>
+                    <input type="text" name="fb_name" class="text-uppercase form-control" placeholder="FACEBOOK NAME">
+                    <span class="invalid-feedback">
+                        <strong></strong>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <span>EMAIL</span>
+                    <input type="email" name="email" class="text-uppercase form-control" placeholder="EXAMPLE@MAIL.COM">
+                    <span class="invalid-feedback">
+                        <strong></strong>
+                    </span>
+                </div>
+                <div class="form-group frm-group-select">
+                    <span>HOUSE PHONE</span>
+                    <input type="number" name="house_phone" class="form-control" placeholder="0XXXXXXXXXXX">
+                    <span class="invalid-feedback">
+                        <strong></strong>
+                    </span>
+                </div>
+                <div class="form-group frm-group-select select-right">
+                    <span>MOBILE PHONE</span>
+                    <input type="number" name="mobile_phone" class="form-control" placeholder="0XXXXXXXXXXX" required>
+                    <span class="invalid-feedback">
+                        <strong></strong>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <span>PREFERRED METHOD OF CONTACT</span>
+                    <select class="text-uppercase form-control" name="contact_method">
+                        <optgroup label="CONTACT METHOD">
+                            <option value="" disabled selected>SELECT CONTACT METHOD</option>
+                            <option value="EMAIL">EMAIL</option>
+                            <option value="WECHAT">WECHAT</option>
+                            <option value="WHATSAPP">WHATSAPP</option>
+                        </optgroup>
+                    </select>
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
@@ -1027,21 +1063,25 @@
             <thead>
                 <tr>
                     <th>REG DATE</th>
-                    <th>CODE</th>
-                    <th>NAME</th>
-                    <th>PHONE</th>
+                    <th>MEMBER NO.</th>
+                    <th>FULL NAME</th>
+                    <th>MOBILE PHONE</th>
                     <th>BRANCH</th>
-                    <th>CSO</th>
-                    <th style="display: none;">ADDRESS</th>
-                    <th style="display: none;">PROVINCE</th>
-                    <th style="display: none;">DISTRICT</th>
-                    <th style="display: none;">COUNTRY</th>
-                    <th style="display: none;">BIRTH DATE</th>
-                    <th style="display: none;">KTP</th>
-                    <th style="display: none;">GENDER</th>
-                    <th style="display: none;">USER NAME</th>
-                    <th style="display: none;">CSO ID</th>
-                    <th style="display: none;">BRANCH ID</th>
+                    <th style="display: none">ID CARD</th>
+                    <th style="display: none">STATUS</th>
+                    <th style="display: none">GENDER</th>
+                    <th style="display: none">BIRTH DATE</th>
+                    <th style="display: none">ADDRESS</th>
+                    <th style="display: none">POSTCODE</th>
+                    <th style="display: none">CITY</th>
+                    <th style="display: none">STATE</th>
+                    <th style="display: none">HOUSE PHONE</th>
+                    <th style="display: none">CONTACT METHOD</th>
+                    <th style="display: none">FB NAME</th>
+                    <th style="display: none">EMAIL</th>
+                    <th style="display: none">USER INPUT</th>
+                    <th style="display: none">BRANCH ID</th>
+                    <th style="display: none">COUNTRY</th>
                     <th style="text-align: center;" colspan="2">@if(Gate::check('edit-mpc'))EDIT @endif @if(Gate::check('delete-mpc'))/ DELETE @endif</th>
                 </tr>
             </thead>
@@ -1052,25 +1092,25 @@
                 @foreach($dataMpcs as $mpc)
                 <tr>
                     <td>{{$mpc->registration_date}}</td>
-                    <td>{{$mpc->code}}</td>
+                    <td>{{$mpc->member_no}}</td>
                     <td>{{$mpc->name}}</td>
-                    @if($mpc->phone == "")
-                        <td>-</td>
-                    @else
-                        <td>{{DataController::Decr($mpc->phone)}}</td>
-                    @endif
-                    <td>{{$mpc->branch['code']}}</td>
-                    <td>{{$mpc->cso['name']}}</td>
-                    <td style="display: none;">{{$mpc->address}}</td>
-                    <td style="display: none;">{{$mpc->province}}</td>
-                    <td style="display: none;">{{$mpc->district}}</td>
-                    <td style="display: none;">{{$mpc->branch['country']}}</td>
-                    <td style="display: none;">{{$mpc->birth_date}}</td>
-                    <td style="display: none;">{{$mpc->ktp}}</td>
-                    <td style="display: none;">{{$mpc->gender}}</td>
-                    <td style="display: none;">{{$mpc->user['id']}}</td>
-                    <td style="display: none;">{{$mpc->cso['id']}}</td>
-                    <td style="display: none;">{{$mpc->branch['id']}}</td>
+                    <td>{{DataController::Decr($mpc->mobile_phone)}}</td>
+                    <td>{{$mpc->branch['name']}}</td>
+                    <th style="display: none">{{$mpc->idcard}}</th>
+                    <th style="display: none">{{$mpc->status}}</th>
+                    <th style="display: none">{{$mpc->gender}}</th>
+                    <th style="display: none">{{$mpc->birth_date}}</th>
+                    <th style="display: none">{{$mpc->address}}</th>
+                    <th style="display: none">{{$mpc->postcode}}</th>
+                    <th style="display: none">{{$mpc->city}}</th>
+                    <th style="display: none">{{$mpc->state}}</th>
+                    <th style="display: none">{{$mpc->house_phone}}</th>
+                    <th style="display: none">{{$mpc->contact_method}}</th>
+                    <th style="display: none">{{$mpc->fb_name}}</th>
+                    <th style="display: none">{{$mpc->email}}</th>
+                    <th style="display: none">{{$mpc->user['id']}}</th>
+                    <th style="display: none">{{$mpc->branch['id']}}</th>
+                    <th style="display: none">{{$mpc->country}}</th>
                     @if(Gate::check('edit-mpc'))
                     <td style="text-align: center;">
                         <button class="btn btn-primary btn-editMpc" type="button" style="padding:0px 5px;" name="{{$i}}" value="{{$mpc->id}}">
@@ -1819,7 +1859,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="text-center">Edit MPC</h2>
+                <h2 class="text-center">Edit Membership</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -1831,35 +1871,42 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <span>REGISTRATION DATE</span>
-                        <input id="edit-txtreg-date-mpc" type="date" name="registration_date" class="text-uppercase form-control" required>
+                        <input type="date" id="edit-txtreg-date-mpc" name="registration_date" class="text-uppercase form-control" required>
                         <span class="invalid-feedback">
                             <strong></strong>
                         </span>
                     </div>
                     <div class="form-group frm-group-select">
-                        <span>MPC CODE</span>
-                        <input id="edit-txtcode-mpc" type="text" id="txtcode-mpc" class="text-uppercase form-control" name="code" placeholder="MPC CODE" required>
+                        <span style="display: block;">MEMBERSHIP NO</span>
+                        <input type="text" id="edit-txtformno-mpc" class="text-uppercase form-control" name="form_no" placeholder="899/999" required style="width: 30%; display: inline;" maxlength="3" onkeypress="return isNumberKey(event)">
+                        <input type="number" id="edit-txtmemberno-mpc" class="text-uppercase form-control" name="member_no" placeholder="FORM NO" required style="width: 68%; display: inline;">
                         <span class="invalid-feedback">
                             <strong></strong>
                         </span>
                     </div>
                     <div class="form-group frm-group-select select-right">
-                        <span>KTP</span>
-                        <input type="number" id="edit-txtktp-mpc" class="form-control text-uppercase" name="ktp"  placeholder="KTP" required>
+                        <span>IDENTITY CARD</span>
+                        <input type="text" id="edit-txtidcard-mpc" class="form-control text-uppercase" name="idcard"  placeholder="IDCARD/PASSPORT/ETC" required>
                         <span class="invalid-feedback">
                             <strong></strong>
                         </span>
                     </div>
                     <div class="form-group">
-                        <span>NAME</span>
-                        <input id="edit-txtname-mpc" type="text" name="name" class="text-uppercase form-control" placeholder="NAME" required>
+                        <span>FULL NAME</span>
+                        <input type="text" id="edit-txtname-mpc" name="name" class="text-uppercase form-control" placeholder="FULL NAME" required>
                         <span class="invalid-feedback">
                             <strong></strong>
                         </span>
                     </div>
                     <div class="form-group frm-group-select">
-                        <span>BIRTH DATE</span>
-                        <input id="edit-txtbirth-date-mpc" type="date" name="birth_date" class="text-uppercase form-control"required>
+                        <span>STATUS</span>
+                        <select id="edit-txtstatus-mpc" class="text-uppercase form-control" name="status">
+                            <optgroup label="Status">
+                                <option value="" disabled selected>SELECT STATUS</option>
+                                <option value="MARIED">MARRIED</option>
+                                <option value="SINGLE">SINGLE</option>
+                            </optgroup>
+                        </select>
                         <span class="invalid-feedback">
                             <strong></strong>
                         </span>
@@ -1869,8 +1916,8 @@
                         <select id="edit-txtgender-mpc" class="text-uppercase form-control" name="gender" required>
                             <optgroup label="Gender">
                                 <option value="" disabled selected>SELECT GENDER</option>
-                                <option value="PRIA">PRIA</option>
-                                <option value="WANITA">WANITA</option>
+                                <option value="MALE">MALE</option>
+                                <option value="FEMALE">FEMALE</option>
                             </optgroup>
                         </select>
                         <span class="invalid-feedback">
@@ -1878,8 +1925,15 @@
                         </span>
                     </div>
                     <div class="form-group">
+                        <span>BIRTH DATE</span>
+                        <input id="edit-txtbirth-date-mpc" type="date" name="birth_date" class="text-uppercase form-control">
+                        <span class="invalid-feedback">
+                            <strong></strong>
+                        </span>
+                    </div>
+                    <div class="form-group">
                         <span>ADDRESS</span>
-                        <textarea id="edit-txtaddress-mpc" name="address" class="text-uppercase form-control form-control-sm" placeholder="Address" required></textarea>
+                        <textarea name="address" id="edit-txtaddress-mpc" class="text-uppercase form-control form-control-sm" placeholder="Address" required></textarea>
                         <span class="invalid-feedback">
                             <strong></strong>
                         </span>
@@ -1896,6 +1950,50 @@
                         </span>
                     </div>
                     <div class="form-group frm-group-select select-right">
+                        <span>STATE</span>
+                        <select id="edit-txtstate-mpc" class="form-control text-uppercase" name="state">
+                            <optgroup label="State">
+                                <option value="" selected disabled>SELECT STATE</option> 
+                                <option value="PERLIS">PERLIS</option> 
+                                <option value="PENANG">PENANG</option>
+                                <option value="KEDAH">KEDAH</option> 
+                                <option value="KELANTAN">KELANTAN</option>
+                                <option value="TERENGGANU">TERENGGANU</option> 
+                                <option value="PAHANG">PAHANG</option>
+                                <option value="PERAK">PERAK</option> 
+                                <option value="SELANGOR">SELANGOR</option>
+                                <option value="WP KUALA LUMPUR">WP KUALA LUMPUR</option>
+                                <option value="WP PUTRAJAYA">WP PUTRAJAYA</option>
+                                <option value="NEGERI SEMBILAN">NEGERI SEMBILAN</option> 
+                                <option value="MELAKA">MELAKA</option> 
+                                <option value="JOHOR">JOHOR</option> 
+                                <option value="WP LABUAN">WP LABUAN</option> 
+                                <option value="SABAH">SABAH</option>
+                                <option value="SERAWAK">SERAWAK</option>
+                            </optgroup>
+                        </select>
+                        <span class="invalid-feedback">
+                            <strong></strong>
+                        </span>
+                    </div>
+
+                    <!-- Khusus untuk Indo untuk sementara -->
+                    <div class="form-group frm-group-select">
+                        <span>CITY</span>
+                        <input type="text" id="edit-txtcity-mpc" class="form-control text-uppercase" name="city"  placeholder="CITY" required>
+                        <span class="invalid-feedback">
+                            <strong></strong>
+                        </span>
+                    </div>
+                    <div class="form-group frm-group-select select-right">
+                        <span>POSTCODE</span>
+                        <input type="text" id="edit-txtpostcode-mpc" class="form-control text-uppercase" name="postcode"  placeholder="POSTCODE" required>
+                        <span class="invalid-feedback">
+                            <strong></strong>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
                         <span>BRANCH</span>
                         <select id="edit-txtbranch-mpc" class="text-uppercase form-control" name="branch" required>
                             <optgroup label="Branch">
@@ -1919,60 +2017,44 @@
                             <strong></strong>
                         </span>
                     </div>
-
-
-                    <!-- CSO -->
                     <div class="form-group">
-                        <span>CSO</span>
-                        <select id="edit-txtcso-mpc" class="text-uppercase form-control" name="cso" required>
-                            <optgroup label="Cso">
-                                <option value="" selected disabled>SELECT YOUR OPTION</option>
-                                    @can('all-country-cso')
-                                        @foreach ($csos as $cso)
-                                            <option value="{{$cso->id}}">{{$cso->code}} - {{$cso->name}}</option>
-                                        @endforeach
-                                    @endcan
-                                    @cannot('all-country-cso')
-                                        @foreach ($csos as $cso)
-                                            @if($cso->branch['country'] == Auth::user()->branch['country'])
-                                                <option value="{{$cso->id}}">{{$cso->code}} - {{$cso->name}}</option>
-                                            @endif
-                                        @endforeach
-                                    @endcan
-                            </optgroup>
-                        </select>
+                        <span>F/B NAME</span>
+                        <input type="text" id="edit-txtfbname-mpc" name="fb_name" class="text-uppercase form-control" placeholder="FACEBOOK NAME">
                         <span class="invalid-feedback">
                             <strong></strong>
                         </span>
                     </div>
-
-                    <!-- Khusus untuk Indo untuk sementara -->
+                    <div class="form-group">
+                        <span>EMAIL</span>
+                        <input type="email" id="edit-txtemail-mpc" name="email" class="text-uppercase form-control" placeholder="EXAMPLE@MAIL.COM">
+                        <span class="invalid-feedback">
+                            <strong></strong>
+                        </span>
+                    </div>
                     <div class="form-group frm-group-select">
-                        <span>PROVINCE</span>
-                        <select id="edit-txtprovince-mpc" class="text-uppercase form-control" name="province" required>
-                            <optgroup label="Province">
-                                @include('etc.select-province')
-                            </optgroup>
-                        </select>
+                        <span>HOUSE PHONE</span>
+                        <input type="number" id="edit-txthouse-phone-mpc" name="house_phone" class="form-control" placeholder="0XXXXXXXXXXX">
                         <span class="invalid-feedback">
                             <strong></strong>
                         </span>
                     </div>
-                    <div class="form-group frm-group-select select-right">
-                        <span>DISTRICT</span>
-                        <select id="edit-txtdistrict-mpc" class="form-control text-uppercase" name="district"required>
-                            <optgroup label="District">
-                                <option disabled selected>SELECT PROVINCE FIRST</option>
-                            </optgroup>
-                        </select>
+                    <div class="form-group frm-group-select">
+                        <span>MOBILE PHONE</span>
+                        <input type="number" id="edit-txtmobile-phone-mpc" name="mobile_phone" class="form-control" placeholder="0XXXXXXXXXXX" required>
                         <span class="invalid-feedback">
                             <strong></strong>
                         </span>
                     </div>
-
                     <div class="form-group">
-                        <span>PHONE</span>
-                        <input id="edit-txtphone-mpc" type="number" name="phone" class="form-control" placeholder="0XXXXXXXXXXX" required>
+                        <span>PREFERRED METHOD OF CONTACT</span>
+                        <select class="text-uppercase form-control" id="edit-txtcontact-method-mpc" name="contact_method">
+                            <optgroup label="CONTACT METHOD">
+                                <option value="" disabled selected>SELECT CONTACT METHOD</option>
+                                <option value="EMAIL">EMAIL</option>
+                                <option value="WECHAT">WECHAT</option>
+                                <option value="WHATSAPP">WHATSAPP</option>
+                            </optgroup>
+                        </select>
                         <span class="invalid-feedback">
                             <strong></strong>
                         </span>
@@ -2254,7 +2336,7 @@
     $("#txtcountry-mpc > optgroup > option").each(function() {
         var $thisOption = $(this);
         if(this.value != "{{ Auth::user()->branch['country'] }}"){
-            $thisOption.attr("disabled","disabled");
+            //$thisOption.attr("disabled","disabled");
         }
         else{
             $thisOption.attr("selected","selected");
@@ -2489,36 +2571,36 @@
                 },
             });
         });
-        $('#txtcountry-mpc').change(function (e){
-            var countryVal = $('#txtcountry-mpc').val();
-            var branches = "<option value=\"\" selected disabled>SELECT YOUR OPTION</option>";
+        // $('#txtcountry-mpc').change(function (e){
+        //     var countryVal = $('#txtcountry-mpc').val();
+        //     var branches = "<option value=\"\" selected disabled>SELECT YOUR OPTION</option>";
 
-            $.ajax({
-                headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                type: 'post',
-                url: "{{route('select-country')}}",
-                data: {
-                    'country': countryVal
-                },
-                success: function(data){
-                    if(data.length > 0)
-                    {
-                        data.forEach(function(key, value){
-                            branches += '<option value="'+data[value].id+'">'+data[value].code+' - '+data[value].name+'</option>';
-                        });
-                        $("#txtbranch-mpc").html("");
-                        $("#txtbranch-mpc").append(branches);
-                    }
-                    else
-                    {
-                        $("#txtbranch-mpc").html("");
-                        $("#txtbranch-mpc").append("<option value=\"\" selected>BRANCH NOT FOUND</option>");
-                    }
-                },
-            });
-        });
+        //     $.ajax({
+        //         headers: {
+        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //             },
+        //         type: 'post',
+        //         url: "{{route('select-country')}}",
+        //         data: {
+        //             'country': countryVal
+        //         },
+        //         success: function(data){
+        //             if(data.length > 0)
+        //             {
+        //                 data.forEach(function(key, value){
+        //                     branches += '<option value="'+data[value].id+'">'+data[value].code+' - '+data[value].name+'</option>';
+        //                 });
+        //                 $("#txtbranch-mpc").html("");
+        //                 $("#txtbranch-mpc").append(branches);
+        //             }
+        //             else
+        //             {
+        //                 $("#txtbranch-mpc").html("");
+        //                 $("#txtbranch-mpc").append("<option value=\"\" selected>BRANCH NOT FOUND</option>");
+        //             }
+        //         },
+        //     });
+        // });
 
         // BRANCH METHOD
         /*$('#txtbranch-dataundangan').change(function (e){
@@ -2670,6 +2752,118 @@
             $.get( "etc/select-"+unescape(provinceVal)+".php", function( data ) {
                 $("#txtdistrict-mpc > optgroup").append(data);
             });
+        });
+
+        //CITY AND POSTCODE KHUSUS MALAYSIA
+        // $('#txtstate-mpc').change(function (e){
+        //     var stateNya = $('#txtstate-mpc').val();
+        //     var city = "<option value=\"\" selected disabled>SELECT CITY</option>";
+
+        //     $.ajax({
+        //         headers: {
+        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //             },
+        //         type: 'post',
+        //         url: "{{route('select-city')}}",
+        //         data: {
+        //             'state': stateNya
+        //         },
+        //         success: function(data){
+        //             if(data.length > 0)
+        //             {
+        //                 data.forEach(function(key, value){
+        //                     city += '<option value="'+data[value].city+'">'+data[value].city+'</option>';
+        //                 });
+        //                 $("#txtcity-mpc").html("");
+        //                 $("#txtcity-mpc").append(city);
+        //                 $("#txtpostcode-mpc").html("");
+        //                 var postcode = "<option value=\"\" selected disabled>SELECT POSTCODE</option>";
+        //                 $("#txtpostcode-mpc").append(postcode);
+        //             }
+        //         },
+        //     });
+        // });
+
+        // $('#txtcity-mpc').change(function (e){
+        //     var cityNya = $('#txtcity-mpc').val();
+        //     var postcode = "<option value=\"\" selected disabled>SELECT POSTCODE</option>";
+
+        //     $.ajax({
+        //         headers: {
+        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //             },
+        //         type: 'post',
+        //         url: "{{route('select-postcode')}}",
+        //         data: {
+        //             'city': cityNya
+        //         },
+        //         success: function(data){
+        //             if(data.length > 0)
+        //             {
+        //                 data.forEach(function(key, value){
+        //                     postcode += '<option value="'+data[value].postcode+'">'+data[value].postcode+'</option>';
+        //                 });
+        //                 $("#txtpostcode-mpc").html("");
+        //                 $("#txtpostcode-mpc").append(postcode);
+        //             }
+        //         },
+        //     });
+        // });
+
+        $('#txtcountry-mpc').change(function (e){
+            var countryNya = $('#txtcountry-mpc').val();
+            if(countryNya != "MALAYSIA"){
+                $('#txtstate-mpc option:eq(0)').prop('selected', true);
+                $("#txtstate-mpc > option").each(function() {
+                    var $thisOption = $(this);
+                    if(this.value != ""){
+                        $thisOption.attr("disabled","disabled");
+                    }
+                });
+                $('#txtcity-mpc').val("");
+                $('#txtpostcode-mpc').val("");
+                $('#txtcity-mpc').attr("readonly", "readonly");
+                $('#txtpostcode-mpc').attr("readonly", "readonly");
+
+            }
+            else{
+                $("#txtstate-mpc > option").each(function() {
+                    var $thisOption = $(this);
+                    if(this.value != ""){
+                        $thisOption.removeAttr("disabled");
+                    }
+                });
+                $('#txtcity-mpc').removeAttr("readonly");
+                $('#txtpostcode-mpc').removeAttr("readonly");
+            }
+        });
+
+        $('#edit-txtcountry-mpc').change(function (e){
+            var countryNya = $('#edit-txtcountry-mpc').val();
+            if(countryNya != "MALAYSIA"){
+                $('#edit-txtstate-mpc option:eq(0)').prop('selected', true);
+                $("#edit-txtstate-mpc > option").each(function() {
+                    var $thisOption = $(this);
+                    if(this.value != ""){
+                        $thisOption.attr("disabled","disabled");
+                    }
+                });
+                $('#edit-txtcity-mpc').val("");
+                $('#edit-txtpostcode-mpc').val("");
+                $('#edit-txtcity-mpc').attr("readonly", "readonly");
+                $('#edit-txtpostcode-mpc').attr("readonly", "readonly");
+
+            }
+            else{
+                $("#edit-txtstate-mpc > option").each(function() {
+                    var $thisOption = $(this);
+                    if(this.value != ""){
+                        $thisOption.removeAttr("disabled");
+                    }
+                });
+                $('#edit-txtcity-mpc').removeAttr("readonly");
+                $('#edit-txtpostcode-mpc').removeAttr("readonly");
+            }
         });
         /*===================================================*/
 
@@ -3174,8 +3368,6 @@
 
                 document.getElementById("btn-confirmUpdateDataTherapy").innerHTML = "SAVE";
             }
-
-            
         }
         function errorHandlerTherapy(event){
             document.getElementById("btn-confirmUpdateDataTherapy").innerHTML = "SAVE";
@@ -3231,36 +3423,29 @@
 
         $(".btn-editMpc").click(function(e) {
             var mpc = GetListMpc(this.name);
+            var member_number = mpc.member_no;
+            var form_no = member_number.substr(0,3);
+            var member_no = member_number.substr(3);
             document.getElementById("edit-txtreg-date-mpc").value = mpc.reg_date;
-            document.getElementById("edit-txtcode-mpc").value = mpc.kode;
-            document.getElementById("edit-txtname-mpc").value = mpc.nama;
-            document.getElementById("edit-txtphone-mpc").value = mpc.phone;
-            document.getElementById("edit-txtaddress-mpc").value = mpc.address;
-            document.getElementById("edit-txtprovince-mpc").value = mpc.province;
-            document.getElementById("edit-txtcountry-mpc").value = mpc.country;
-            document.getElementById("edit-txtbirth-date-mpc").value = mpc.birth_date;
-            document.getElementById("edit-txtktp-mpc").value = mpc.ktp;
+            document.getElementById("edit-txtformno-mpc").value = form_no;
+            document.getElementById("edit-txtmemberno-mpc").value = member_no;
+            document.getElementById("edit-txtname-mpc").value = mpc.name;
+            document.getElementById("edit-txtmobile-phone-mpc").value = mpc.mobile_phone;
+            document.getElementById("edit-txtbranch-mpc").value = mpc.branch_id;
+            document.getElementById("edit-txtidcard-mpc").value = mpc.idcard;
+            document.getElementById("edit-txtstatus-mpc").value = mpc.status;
             document.getElementById("edit-txtgender-mpc").value = mpc.gender;
-            document.getElementById("edit-txtcso-mpc").value = mpc.cso;
-            document.getElementById("edit-txtbranch-mpc").value = mpc.branch;
+            document.getElementById("edit-txtbirth-date-mpc").value = mpc.birth_date;
+            document.getElementById("edit-txtaddress-mpc").value = mpc.address;
+            document.getElementById("edit-txtpostcode-mpc").value = mpc.postcode;
+            document.getElementById("edit-txtcity-mpc").value = mpc.city;
+            document.getElementById("edit-txtstate-mpc").value = mpc.state;
+            document.getElementById("edit-txtcountry-mpc").value = mpc.country;
+            document.getElementById("edit-txthouse-phone-mpc").value = mpc.house_phone;
+            document.getElementById("edit-txtcontact-method-mpc").value = mpc.contact_method;
+            document.getElementById("edit-txtfbname-mpc").value = mpc.fb_name;
+            document.getElementById("edit-txtemail-mpc").value = mpc.email;
             document.getElementById("btn-confirmUpdateMpc").value = this.value;
-
-            var pilihanProvinsi = mpc.province;
-            var pilihanCso = mpc.cso;
-            var pilihanBranch = mpc.branch;
-            var isiOption = "";
-
-            //UPDATE DISTRICT
-            var districtTemp = $("#edit-txtdistrict-mpc").children("optgroup").eq(0);
-            districtTemp.empty();
-            $.get( "etc/select-"+unescape(pilihanProvinsi)+".php", function( data ) {
-                addToDistrict(districtTemp, data, function(){
-                    document.getElementById("edit-txtdistrict-mpc").value = mpc.district;
-                });
-            });
-
-            //UPDATE BRANCH
-            RetriveSelectedBranch(mpc.country, mpc.branch, "#edit-txtbranch-mpc");
 
             $("#modal-EditMpc").modal("show");
         });
@@ -3269,6 +3454,8 @@
             e.preventDefault();
             frmAddMpc = _("actionAddMpc");
             frmAddMpc = new FormData(frmAddMpc);
+            var member_no = $("#txtformno-mpc").val() + $("#txtmemberno-mpc").val();
+            frmAddMpc.append("member_no", member_no);
             var URLNya = $("#actionAddMpc").attr('action');
 
             var ajax = new XMLHttpRequest();
@@ -3286,6 +3473,8 @@
             frmEditMpc = _("actionEditMpc");
             frmEditMpc = new FormData(frmEditMpc);
             frmEditMpc.append("id",$(this).find("button").eq(1).val());
+            var member_no = $("#edit-txtformno-mpc").val() + $("#edit-txtmemberno-mpc").val();
+            frmEditMpc.append("member_no", member_no);
             var URLNya = $("#actionEditMpc").attr('action');
 
             var ajax = new XMLHttpRequest();
@@ -3307,7 +3496,6 @@
         }
         function completeHandlerMpc(event){
             var hasil = JSON.parse(event.target.responseText);
-
             if(isAddMpc){
                 for (var key of frmAddMpc.keys()) {
                     $("#actionAddMpc").find("input[name="+key+"]").removeClass("is-invalid");

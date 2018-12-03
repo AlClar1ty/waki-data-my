@@ -44,7 +44,7 @@ class BranchesTableSeeder extends Seeder
 
         DB::table('branches')->insert([
             'code' => 'F01',
-            'name' => 'WAKi International Tower',
+            'name' => 'WAKi Tower',
             'country' => 'MALAYSIA',
         ]);
     }

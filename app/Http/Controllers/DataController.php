@@ -88,9 +88,7 @@ class DataController extends Controller
             if($user->can('all-country-mpc'))
             {
                 $mpcs = Mpc::when($request->keywordMpc, function ($query) use ($request) {
-                    $query->where('mpcs.code', 'like', "%{$request->keywordMpc}%")
-                        ->where('mpcs.active', true)
-                        ->orWhere('mpcs.member_no', 'like', "%{$request->keywordMpc}%")
+                    $query->where('mpcs.member_no', 'like', "%{$request->keywordMpc}%")
                         ->where('mpcs.active', true)
                         ->orWhere('mpcs.name', 'like', "%{$request->keywordMpc}%")
                         ->where('mpcs.active', true)
@@ -134,12 +132,7 @@ class DataController extends Controller
             else
             {
                 $mpcs = Mpc::when($request->keywordMpc, function ($query) use ($request, $user) {
-                    $query->where('mpcs.code', 'like', "%{$request->keywordMpc}%")
-                        ->where([
-                            ['mpcs.active', true],
-                            ['branches.country', $user->branch['country']]
-                        ])
-                        ->orWhere('mpcs.member_no', 'like', "%{$request->keywordMpc}%")
+                    $query->where('mpcs.member_no', 'like', "%{$request->keywordMpc}%")
                         ->where([
                             ['mpcs.active', true],
                             ['branches.country', $user->branch['country']]
@@ -233,12 +226,7 @@ class DataController extends Controller
         else
         {
             $mpcs = Mpc::when($request->keywordMpc, function ($query) use ($request, $user) {
-                $query->where('mpcs.code', 'like', "%{$request->keywordMpc}%")
-                        ->where([
-                            ['mpcs.active', true],
-                            ['mpcs.branch_id', $user->branch_id]
-                        ])
-                        ->orWhere('mpcs.member_no', 'like', "%{$request->keywordMpc}%")
+                $query->where('mpcs.member_no', 'like', "%{$request->keywordMpc}%")
                         ->where([
                             ['mpcs.active', true],
                             ['mpcs.branch_id', $user->branch_id]
@@ -1196,29 +1184,26 @@ class DataController extends Controller
     */
     public function storeMpc(Request $request)
     {
-        if ($request->has('phone') && $request->phone != null)
-            $request->merge(['phone'=> ($this->Encr($request->phone))]);
+        if ($request->has('mobile_phone') && $request->mobile_phone != null)
+            $request->merge(['mobile_phone'=> ($this->Encr($request->mobile_phone))]);
 
         $validator = \Validator::make($request->all(), [
-            'name' => 'required',
-            'ktp' => 'required',
-            'code' => [
-                'required',
-                Rule::unique('mpcs')->where('active', 1),
-            ],
-            'address' => 'required',
-            'gender' => 'required',
             'registration_date' => 'required',
-            'birth_date' => 'required',
-            'phone' => [
+            'member_no' => [
                 'required',
                 Rule::unique('mpcs')->where('active', 1),
             ],
-            'province' => 'required',
-            'district' => 'required',
-            'branch' => 'required',
+            'name' => 'required',
+            'idcard' => [
+                'required',
+                Rule::unique('mpcs')->where('active', 1),
+            ],
+            'gender' => 'required',
+            'birth_date' => 'required',
+            'address' => 'required',
             'country' => 'required',
-            'cso' => 'required',
+            'mobile_phone' => 'required',
+            'branch' => 'required',
         ]);
 
         if ($validator->fails())
@@ -1234,13 +1219,10 @@ class DataController extends Controller
         else {
             $user = Auth::user();
 
-            $data = $request->only('code', 'ktp', 'birth_date', 'registration_date', 'name', 'gender', 'address', 'phone', 'province', 'district');
-            $data['name'] = strtoupper($data['name']);
-            $data['code'] = strtoupper($data['code']);
+            $data = $request->only('registration_date', 'member_no', 'name', 'idcard', 'status', 'gender', 'birth_date', 'address', 'postcode', 'city', 'state', 'country', 'house_phone', 'mobile_phone','contact_method', 'fb_name', 'email');
 
             //ngemasukin data ke array $data
             $data['branch_id'] = $request->get('branch');
-            $data['cso_id'] = $request->get('cso');
             $data['user_id'] = $user->id;
 
             //masukin data ke Mpc
@@ -1514,29 +1496,26 @@ class DataController extends Controller
     */
     public function updateMpc(Request $request)
     {
-        if ($request->has('phone') && $request->phone != null)
-            $request->merge(['phone'=> ($this->Encr($request->phone))]);
+        if ($request->has('mobile_phone') && $request->mobile_phone != null)
+            $request->merge(['mobile_phone'=> ($this->Encr($request->mobile_phone))]);
 
         $validator = \Validator::make($request->all(), [
-            'name' => 'required',
-            'ktp' => 'required',
-            'code' => [
-                'required',
-                Rule::unique('mpcs')->whereNot('id', $request->get('id'))->where('active', 1),
-            ],
-            'address' => 'required',
-            'gender' => 'required',
             'registration_date' => 'required',
-            'birth_date' => 'required',
-            'phone' => [
+            'member_no' => [
                 'required',
                 Rule::unique('mpcs')->whereNot('id', $request->get('id'))->where('active', 1),
             ],
-            'province' => 'required',
-            'district' => 'required',
-            'branch' => 'required',
+            'name' => 'required',
+            'idcard' => [
+                'required',
+                Rule::unique('mpcs')->whereNot('id', $request->get('id'))->where('active', 1),
+            ],
+            'gender' => 'required',
+            'birth_date' => 'required',
+            'address' => 'required',
             'country' => 'required',
-            'cso' => 'required',
+            'mobile_phone' => 'required',
+            'branch' => 'required',
         ]);
 
         if ($validator->fails())
@@ -1552,14 +1531,10 @@ class DataController extends Controller
         else {
             $user = Auth::user();
 
-            $data = $request->only('code', 'ktp', 'birth_date', 'registration_date', 'name', 'gender', 'address', 'phone', 'province', 'district');
-            $data['name'] = strtoupper($data['name']);
-            $data['code'] = strtoupper($data['code']);
-            $data['address'] = strtoupper($data['address']);
+            $data = $request->only('registration_date', 'member_no', 'name', 'idcard', 'status', 'gender', 'birth_date', 'address', 'postcode', 'city', 'state', 'country', 'house_phone', 'mobile_phone','contact_method', 'fb_name', 'email');
 
             //ngemasukin data ke array $data
             $data['branch_id'] = $request->get('branch');
-            $data['cso_id'] = $request->get('cso');
             $data['user_id'] = $user->id;
 
             //masukin data ke Mpc

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Mpc extends Model
 {
     protected $fillable = [
-        'code', 'registration_date', 'member_no', 'name', 'idcard', 'status', 'gender', 'birth_date', 'address', 'postcode', 'city', 'state', 'house_phone', 'mobile_phone', 'fb_name', 'email', 'active', 'branch_id', 'user_id',
+        'registration_date', 'member_no', 'name', 'idcard', 'status', 'gender', 'birth_date', 'address', 'postcode', 'city', 'state', 'country', 'house_phone', 'mobile_phone','contact_method', 'fb_name', 'email', 'active', 'branch_id', 'user_id',
     ];
 
     public function branch()
