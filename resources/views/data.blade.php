@@ -737,7 +737,7 @@
                 </div>
                 <div class="form-group">
                     <span>EMAIL</span>
-                    <input type="email" name="email" class="text-uppercase form-control" placeholder="EXAMPLE@MAIL.COM">
+                    <input type="email" name="email" class="form-control" placeholder="EXAMPLE@MAIL.COM">
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
@@ -2028,7 +2028,7 @@
                     </div>
                     <div class="form-group">
                         <span>EMAIL</span>
-                        <input type="email" id="edit-txtemail-mpc" name="email" class="text-uppercase form-control" placeholder="EXAMPLE@MAIL.COM">
+                        <input type="email" id="edit-txtemail-mpc" name="email" class=" form-control" placeholder="EXAMPLE@MAIL.COM">
                         <span class="invalid-feedback">
                             <strong></strong>
                         </span>

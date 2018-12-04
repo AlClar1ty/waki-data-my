@@ -244,7 +244,7 @@ class DataController extends Controller
                 $phoneNumberS = $this->Encr($request->keywordMpc);
                 $phoneNumberS = $phoneNumberS[0].str_replace("\\", "\\\\", substr($phoneNumberS, 1));
             }
-            
+
             $mpcs = Mpc::when($request->keywordMpc, function ($query) use ($request, $user) {
                 $query->where('mpcs.member_no', 'like', "%{$request->keywordMpc}%")
                         ->where([
@@ -1240,6 +1240,11 @@ class DataController extends Controller
 
             $data = $request->only('registration_date', 'member_no', 'name', 'idcard', 'status', 'gender', 'birth_date', 'address', 'postcode', 'city', 'state', 'country', 'house_phone', 'mobile_phone','contact_method', 'fb_name', 'email');
 
+            $data['name'] = strtoupper($data['name']);
+            $data['address'] = strtoupper($data['address']);
+            $data['city'] = strtoupper($data['city']);
+            $data['fb_name'] = strtoupper($data['fb_name']);
+            
             //ngemasukin data ke array $data
             $data['branch_id'] = $request->get('branch');
             $data['user_id'] = $user->id;
@@ -1496,6 +1501,8 @@ class DataController extends Controller
             $data = $request->only('registration_date', 'name', 'address', 'phone', 'province', 'district');
             $data['name'] = strtoupper($data['name']);
             $data['address'] = strtoupper($data['address']);
+            $data['city'] = strtoupper($data['city']);
+            $data['fb_name'] = strtoupper($data['fb_name']);
 
             //ngemasukin data ke array $data
             $data['branch_id'] = $request->get('branch');
