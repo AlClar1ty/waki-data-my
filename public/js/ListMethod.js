@@ -85,14 +85,15 @@ function GetListMpc(idx){
         country : mpc_country, house_phone : mpc_house_phone, contact_method : mpc_contact_method, fb_name : mpc_fb_name, email : mpc_email, user_id : mpc_user_id, branch_id : mpc_branch_id};
 }
 
-//untuk menampilkan modal hapus data OUTSITE dan menampilkan data mana yang mau di hapus
-// $(".btn-deleteDataOutsite").click(function(e) {
-//     var dataOutsite = GetListDataOutsite(this.name);
-//     document.getElementById("txt-delete-dataoutsite").innerHTML = "Do you want to delete "+ dataOutsite.kode +" - "+ dataOutsite.nama +"?";
-//     document.getElementById("btn-confirmDeleteDataOutsite").value = this.value;
-//     $("#actionDelete").prop('action', actionDelete+'/'+this.value);
-//     $("#modal-DeleteConfirm").modal("show");
-// });
+var actionDeleteMpc = $("#actionDeleteMpc").prop('action');
+// untuk menampilkan modal hapus data OUTSITE dan menampilkan data mana yang mau di hapus
+$(".btn-deleteMpc").click(function(e) {
+    var mpc = GetListMpc(this.name);
+    document.getElementById("txt-delete-mpc").innerHTML = "Do you want to delete "+ mpc.member_no +" - "+ mpc.name +"?";
+    document.getElementById("btn-confirmDeleteMpc").value = this.value;
+    $("#actionDeleteMpc").prop('action', actionDeleteMpc+'/'+this.value);
+    $("#modal-DeleteConfirmMpc").modal("show");
+});
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

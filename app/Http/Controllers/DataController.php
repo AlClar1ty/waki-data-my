@@ -87,6 +87,12 @@ class DataController extends Controller
         {
             if($user->can('all-country-mpc'))
             {
+                $phoneNumberS = "";
+                if($request->keywordMpc != ""){
+                    $phoneNumberS = $this->Encr($request->keywordMpc);
+                    $phoneNumberS = $phoneNumberS[0].str_replace("\\", "\\\\", substr($phoneNumberS, 1));
+                }
+
                 $mpcs = Mpc::when($request->keywordMpc, function ($query) use ($request) {
                     $query->where('mpcs.member_no', 'like', "%{$request->keywordMpc}%")
                         ->where('mpcs.active', true)
@@ -108,7 +114,7 @@ class DataController extends Controller
                         ->where('mpcs.active', true)
                         ->orWhere('mpcs.house_phone', 'like', "%{$request->keywordMpc}%")
                         ->where('mpcs.active', true)
-                        ->orWhere('mpcs.mobile_phone', 'like', "%{$request->keywordMpc}%")
+                        ->orWhere('mpcs.mobile_phone', 'like', "%{$phoneNumberS}%")
                         ->where('mpcs.active', true)
                         ->orWhere('mpcs.fb_name', 'like', "%{$request->keywordMpc}%")
                         ->where('mpcs.active', true)
@@ -132,6 +138,13 @@ class DataController extends Controller
             else
             {
                 $mpcs = Mpc::when($request->keywordMpc, function ($query) use ($request, $user) {
+
+                    $phoneNumberS = "";
+                    if($request->keywordMpc != ""){
+                        $phoneNumberS = $this->Encr($request->keywordMpc);
+                        $phoneNumberS = $phoneNumberS[0].str_replace("\\", "\\\\", substr($phoneNumberS, 1));
+                    }
+
                     $query->where('mpcs.member_no', 'like', "%{$request->keywordMpc}%")
                         ->where([
                             ['mpcs.active', true],
@@ -182,7 +195,7 @@ class DataController extends Controller
                             ['mpcs.active', true],
                             ['branches.country', $user->branch['country']]
                         ])
-                        ->orWhere('mpcs.mobile_phone', 'like', "%{$request->keywordMpc}%")
+                        ->orWhere('mpcs.mobile_phone', 'like', "%{$phoneNumberS}%")
                         ->where([
                             ['mpcs.active', true],
                             ['branches.country', $user->branch['country']]
@@ -225,6 +238,13 @@ class DataController extends Controller
         }
         else
         {
+
+            $phoneNumberS = "";
+            if($request->keywordMpc != ""){
+                $phoneNumberS = $this->Encr($request->keywordMpc);
+                $phoneNumberS = $phoneNumberS[0].str_replace("\\", "\\\\", substr($phoneNumberS, 1));
+            }
+            
             $mpcs = Mpc::when($request->keywordMpc, function ($query) use ($request, $user) {
                 $query->where('mpcs.member_no', 'like', "%{$request->keywordMpc}%")
                         ->where([
@@ -276,7 +296,7 @@ class DataController extends Controller
                             ['mpcs.active', true],
                             ['mpcs.branch_id', $user->branch_id]
                         ])
-                        ->orWhere('mpcs.mobile_phone', 'like', "%{$request->keywordMpc}%")
+                        ->orWhere('mpcs.mobile_phone', 'like', "%{$phoneNumberS}%")
                         ->where([
                             ['mpcs.active', true],
                             ['mpcs.branch_id', $user->branch_id]
@@ -1200,7 +1220,6 @@ class DataController extends Controller
             ],
             'gender' => 'required',
             'birth_date' => 'required',
-            'address' => 'required',
             'country' => 'required',
             'mobile_phone' => 'required',
             'branch' => 'required',
@@ -1512,7 +1531,6 @@ class DataController extends Controller
             ],
             'gender' => 'required',
             'birth_date' => 'required',
-            'address' => 'required',
             'country' => 'required',
             'mobile_phone' => 'required',
             'branch' => 'required',
@@ -1554,10 +1572,7 @@ class DataController extends Controller
     */
     public function findMpc(Request $request)
     {
-        if ($request->has('phone') && $request->phone != null)
-            $request->merge(['phone'=> ($this->Encr($request->phone))]);
-
-        $MpcNya = Mpc::where([['phone', $request->phone],['active', true]])->first();
+        $MpcNya = Mpc::where([['member_no', $request->member_no],['active', true]])->first();
         if($MpcNya != null){
             return response()->json(['success'=>$MpcNya]);
         }
@@ -1593,10 +1608,10 @@ class DataController extends Controller
     /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    BUAT DELETE DATA    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
     /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
     
-    // public function delete(DataOutsite $data_outsite)
-    // {
-    //     $data_outsite->active = false;
-    //     $data_outsite->save();
-    //     return redirect()->route('data');
-    // }
+    public function deleteMpc(Mpc $mpc)
+    {
+        $mpc->active = false;
+        $mpc->save();
+        return redirect()->route('data');
+    }
 }

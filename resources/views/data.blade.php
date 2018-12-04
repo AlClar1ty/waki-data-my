@@ -590,8 +590,13 @@
                 </div>
                 <div class="form-group frm-group-select">
                     <span style="display: block;">MEMBERSHIP NO</span>
-                    <input type="text" id="txtformno-mpc" class="text-uppercase form-control" name="form_no" placeholder="899/999" required style="width: 30%; display: inline;" maxlength="3" onkeypress="return isNumberKey(event)">
-                    <input type="number" id="txtmemberno-mpc" class="text-uppercase form-control" name="member_no" placeholder="FORM NO" required style="width: 68%; display: inline;">
+                    <!-- <input type="text" id="txtformno-mpc" class="text-uppercase form-control" name="form_no" placeholder="899/999" required style="width: 30%; display: inline;" maxlength="3" onkeypress="return isNumberKey(event)"> -->
+                    <select id="txtformno-mpc" class="text-uppercase form-control" name="form_no" required style="width: 40%; display: inline;">
+                        <option disabled selected value="">899/999</option>
+                        <option value="899">899</option>
+                        <option value="999">999</option>
+                    </select>
+                    <input type="number" id="txtmemberno-mpc" class="text-uppercase form-control" name="member_no" placeholder="FORM NO" required style="width: 58%; display: inline;">
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
@@ -641,7 +646,7 @@
                 </div>
                 <div class="form-group">
                     <span>ADDRESS</span>
-                    <textarea name="address" class="text-uppercase form-control form-control-sm" placeholder="Address" required></textarea>
+                    <textarea name="address" class="text-uppercase form-control form-control-sm" placeholder="Address"></textarea>
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
@@ -686,14 +691,14 @@
                 <!-- Khusus untuk Indo untuk sementara -->
                 <div class="form-group frm-group-select">
                     <span>CITY</span>
-                    <input type="text" id="txtcity-mpc" class="form-control text-uppercase" name="city"  placeholder="CITY" required>
+                    <input type="text" id="txtcity-mpc" class="form-control text-uppercase" name="city"  placeholder="CITY">
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
                 </div>
                 <div class="form-group frm-group-select select-right">
                     <span>POSTCODE</span>
-                    <input type="text" id="txtpostcode-mpc" class="form-control text-uppercase" name="postcode"  placeholder="POSTCODE" required>
+                    <input type="text" id="txtpostcode-mpc" class="form-control text-uppercase" name="postcode"  placeholder="POSTCODE">
                     <span class="invalid-feedback">
                         <strong></strong>
                     </span>
@@ -1142,22 +1147,16 @@
     <div class="card-inmobile">
         <div class="card" style="margin-bottom:10px;">
             <div class="card-body">
-                <h6 class="card-title" style="border-bottom:solid 0.2px black;text-align:center;">{{$mpc->code}} - {{$mpc->name}}<br></h6>
-                <h6 class="text-muted card-subtitle mb-2" style="font-size:12px;">{{$mpc->branch['country']}} - {{$mpc->branch['code']}}<br></h6>
+                <h6 class="card-title" style="border-bottom:solid 0.2px black;text-align:center;">{{$mpc->member_no}} - {{$mpc->name}}<br></h6>
+                <h6 class="text-muted card-subtitle mb-2" style="font-size:12px;">{{$mpc->branch['code']}} - {{$mpc->branch['name']}}<br></h6>
                 <p class="card-text" style="font-weight:normal;font-size:14px;margin-bottom:3px;"><b>Registration Date :</b> {{$mpc->registration_date}}<br></p>
-                <p class="card-text" style="font-weight:normal;font-size:14px;margin-bottom:3px;"><b>No. KTP :</b> {{$mpc->ktp}}<br></p>
+                <p class="card-text" style="font-weight:normal;font-size:14px;margin-bottom:3px;"><b>ID Card :</b> {{$mpc->idcard}}<br></p>
                 <p class="card-text" style="font-weight:normal;font-size:14px;margin-bottom:3px;"><b>Birth Date :</b> {{$mpc->birth_date}}<br></p>
                 <p class="card-text" style="font-weight:normal;font-size:14px;margin-bottom:3px;"><b>Gender :</b> {{$mpc->gender}}<br></p>
-                <p class="card-text" style="font-weight:normal;font-size:14px;margin-bottom:3px;"><b>Address :</b> {{$mpc->address}}<br></p>
-                <p class="card-text" style="font-weight:normal;font-size:14px;margin-bottom:3px;"><b>Phone :</b>
-                    @if($mpc->phone == "")
-                        <td>-</td>
-                    @else
-                        <td>{{DataController::Decr($mpc->phone)}}</td>
-                    @endif
+                <p class="card-text" style="font-weight:normal;font-size:14px;margin-bottom:3px;"><b>Mobile Phone :</b><td> {{DataController::Decr($mpc->mobile_phone)}}</td>
                     <br></p>
-                <p class="card-text" style="font-weight:normal;font-size:14px;margin-bottom:3px;"><b>CSO :</b> {{$mpc->cso['name']}}<br></p>
-                <p class="card-text" style="font-weight:normal;font-size:14px;margin-bottom:10px;"><b>User Keyin :</b> {{$mpc->user['name']}}<br></p>
+                <p class="card-text" style="font-weight:normal;font-size:14px;margin-bottom:3px;"><b>Branch :</b> {{$mpc->branch['name']}}<br></p>
+                <p class="card-text" style="font-weight:normal;font-size:14px;margin-bottom:10px;"><b>User Keyin :</b> {{$mpc->user['username']}}-{{$mpc->user['name']}}<br></p>
                 @if(Gate::check('edit-mpc'))
                 <button class="btn btn-primary btn-edithapus-card btn-editMpc" type="button" style="padding:0px 5px;" name="{{$i}}" value="{{$mpc->id}}">
                     <i class="material-icons">mode_edit</i>
@@ -1878,7 +1877,12 @@
                     </div>
                     <div class="form-group frm-group-select">
                         <span style="display: block;">MEMBERSHIP NO</span>
-                        <input type="text" id="edit-txtformno-mpc" class="text-uppercase form-control" name="form_no" placeholder="899/999" required style="width: 30%; display: inline;" maxlength="3" onkeypress="return isNumberKey(event)">
+                        <!-- <input type="text" id="edit-txtformno-mpc" class="text-uppercase form-control" name="form_no" placeholder="899/999" required style="width: 30%; display: inline;" maxlength="3" onkeypress="return isNumberKey(event)"> -->
+                        <select id="edit-txtformno-mpc" class="text-uppercase form-control" name="form_no" required style="width: 30%; display: inline;">
+                            <option disabled selected value="">899/999</option>
+                            <option value="899">899</option>
+                            <option value="999">999</option>
+                        </select>
                         <input type="number" id="edit-txtmemberno-mpc" class="text-uppercase form-control" name="member_no" placeholder="FORM NO" required style="width: 68%; display: inline;">
                         <span class="invalid-feedback">
                             <strong></strong>
@@ -1933,7 +1937,7 @@
                     </div>
                     <div class="form-group">
                         <span>ADDRESS</span>
-                        <textarea name="address" id="edit-txtaddress-mpc" class="text-uppercase form-control form-control-sm" placeholder="Address" required></textarea>
+                        <textarea name="address" id="edit-txtaddress-mpc" class="text-uppercase form-control form-control-sm" placeholder="Address"></textarea>
                         <span class="invalid-feedback">
                             <strong></strong>
                         </span>
@@ -1952,25 +1956,23 @@
                     <div class="form-group frm-group-select select-right">
                         <span>STATE</span>
                         <select id="edit-txtstate-mpc" class="form-control text-uppercase" name="state">
-                            <optgroup label="State">
-                                <option value="" selected disabled>SELECT STATE</option> 
-                                <option value="PERLIS">PERLIS</option> 
-                                <option value="PENANG">PENANG</option>
-                                <option value="KEDAH">KEDAH</option> 
-                                <option value="KELANTAN">KELANTAN</option>
-                                <option value="TERENGGANU">TERENGGANU</option> 
-                                <option value="PAHANG">PAHANG</option>
-                                <option value="PERAK">PERAK</option> 
-                                <option value="SELANGOR">SELANGOR</option>
-                                <option value="WP KUALA LUMPUR">WP KUALA LUMPUR</option>
-                                <option value="WP PUTRAJAYA">WP PUTRAJAYA</option>
-                                <option value="NEGERI SEMBILAN">NEGERI SEMBILAN</option> 
-                                <option value="MELAKA">MELAKA</option> 
-                                <option value="JOHOR">JOHOR</option> 
-                                <option value="WP LABUAN">WP LABUAN</option> 
-                                <option value="SABAH">SABAH</option>
-                                <option value="SERAWAK">SERAWAK</option>
-                            </optgroup>
+                            <option value="" selected disabled>SELECT STATE</option> 
+                            <option value="PERLIS">PERLIS</option> 
+                            <option value="PENANG">PENANG</option>
+                            <option value="KEDAH">KEDAH</option> 
+                            <option value="KELANTAN">KELANTAN</option>
+                            <option value="TERENGGANU">TERENGGANU</option> 
+                            <option value="PAHANG">PAHANG</option>
+                            <option value="PERAK">PERAK</option> 
+                            <option value="SELANGOR">SELANGOR</option>
+                            <option value="WP KUALA LUMPUR">WP KUALA LUMPUR</option>
+                            <option value="WP PUTRAJAYA">WP PUTRAJAYA</option>
+                            <option value="NEGERI SEMBILAN">NEGERI SEMBILAN</option> 
+                            <option value="MELAKA">MELAKA</option> 
+                            <option value="JOHOR">JOHOR</option> 
+                            <option value="WP LABUAN">WP LABUAN</option> 
+                            <option value="SABAH">SABAH</option>
+                            <option value="SERAWAK">SERAWAK</option>
                         </select>
                         <span class="invalid-feedback">
                             <strong></strong>
@@ -2201,6 +2203,33 @@
 <!--=======================================================================-->
 
 @endsection
+
+@section('modal')
+<!-- modal hapus data -->
+<div class="modal fade" role="dialog" tabindex="-1" id="modal-DeleteConfirmMpc">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete&nbsp;</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="txt-delete-mpc"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" type="button" data-dismiss="modal">Close</button>
+                <form id="actionDeleteMpc" action="{{route('delete_mpc', ['id' => ''])}}" method="post">
+                    {{csrf_field()}}
+                    <button class="btn btn-danger" type="submit" id="btn-confirmDeleteMpc" value="-">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
 
 <!-- SCRIPT SECTION -->
 @section('script')
@@ -3446,6 +3475,32 @@
             document.getElementById("edit-txtfbname-mpc").value = mpc.fb_name;
             document.getElementById("edit-txtemail-mpc").value = mpc.email;
             document.getElementById("btn-confirmUpdateMpc").value = this.value;
+
+            var countryNya = mpc.country;
+            if(countryNya != "MALAYSIA"){
+                $('#edit-txtstate-mpc option:eq(0)').prop('selected', true);
+                $("#edit-txtstate-mpc > option").each(function() {
+                    var $thisOption = $(this);
+                    if(this.value != ""){
+                        $thisOption.attr("disabled","disabled");
+                    }
+                });
+                $('#edit-txtcity-mpc').val("");
+                $('#edit-txtpostcode-mpc').val("");
+                $('#edit-txtcity-mpc').attr("readonly", "readonly");
+                $('#edit-txtpostcode-mpc').attr("readonly", "readonly");
+
+            }
+            else{
+                $("#edit-txtstate-mpc > option").each(function() {
+                    var $thisOption = $(this);
+                    if(this.value != ""){
+                        $thisOption.removeAttr("disabled");
+                    }
+                });
+                $('#edit-txtcity-mpc').removeAttr("readonly");
+                $('#edit-txtpostcode-mpc').removeAttr("readonly");
+            }
 
             $("#modal-EditMpc").modal("show");
         });

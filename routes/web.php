@@ -97,6 +97,10 @@ Route::group(['prefix' => 'data'], function () {
     Route::post('/deletedataoutsite', 'DataController@deleteDataOutsite')
         ->name('delete_dataoutsite')
         ->middleware('can:delete-data-outsite');
+
+    Route::post('/deletempc/{mpc}', 'DataController@deleteMpc')
+        ->name('delete_mpc')
+        ->middleware('can:delete-mpc');
 });
 
 //-- MASTER DATA TYPE --//

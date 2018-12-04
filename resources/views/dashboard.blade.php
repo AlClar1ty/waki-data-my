@@ -48,32 +48,41 @@
                 <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
                     <div class="panel panel-teal panel-widget border-right">
                         <div class="row no-padding"><em class="fa fa-xl fa-users color-blue"></em>
-                            <div class="large">{{$dataUndangans}}</div>
-                            <div class="text-muted">Data Undangan</div>
+                            <div class="large">{{$TotalR1}}</div>
+                            <div class="text-muted">Xiang Chu Restaurant</div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                    <div class="panel panel-blue panel-widget border-right">
-                        <div class="row no-padding"><em class="fa fa-xl fa-arrow-up color-orange"></em>
-                            <div class="large">{{$dataOutsites}}</div>
-                            <div class="text-muted">Data Out-site</div>
+                    <div class="panel panel-teal panel-widget border-right">
+                        <div class="row no-padding"><em class="fa fa-xl fa-users color-red"></em>
+                            <div class="large">{{$TotalR2}}</div>
+                            <div class="text-muted">Yuan Le Foodcourt</div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                    <div class="panel panel-orange panel-widget border-right">
-                        <div class="row no-padding"><em class="fa fa-xl fa-arrow-down color-teal"></em>
-                            <div class="large">{{$dataTherapies}}</div>
-                            <div class="text-muted">Data Therapy</div>
+                    <div class="panel panel-teal panel-widget border-right">
+                        <div class="row no-padding"><em class="fa fa-xl fa-users color-green"></em>
+                            <div class="large">{{$TotalR3}}</div>
+                            <div class="text-muted">Rasia Restaurant</div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-                    <div class="panel panel-red panel-widget ">
-                        <div class="row no-padding"><em class="fa fa-xl fa-credit-card color-red"></em>
-                            <div class="large">{{$mpcs}}</div>
-                            <div class="text-muted">MPC</div>
+                    <div class="panel panel-teal panel-widget border-right">
+                        <div class="row no-padding"><em class="fa fa-xl fa-users color-yellow"></em>
+                            <div class="large">{{$TotalR4}}</div>
+                            <div class="text-muted">WAKi Dim Sum Restaurant
+</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+                    <div class="panel panel-teal panel-widget border-right">
+                        <div class="row no-padding"><em class="fa fa-xl fa-users color-green"></em>
+                            <div class="large">{{$TotalR5}}</div>
+                            <div class="text-muted">Yuan Le Dim Sum</div>
                         </div>
                     </div>
                 </div>

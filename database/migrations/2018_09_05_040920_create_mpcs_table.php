@@ -22,7 +22,7 @@ class CreateMpcsTable extends Migration
             $table->string('status')->nullable();
             $table->string('gender');
             $table->date('birth_date');
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('postcode')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
