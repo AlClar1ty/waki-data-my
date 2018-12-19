@@ -25,6 +25,17 @@ body {
   transition:all 0.5s ease;
 }
 
+
+#sidebar-wrapper{
+    overflow-x: hidden;
+    overflow-y: auto;
+    }
+    #sidebar-wrapper::-webkit-scrollbar { width: 0 !important }
+    #sidebar-wrapper{ -ms-overflow-style: none; }
+    #sidebar-wrapper{ overflow: -moz-scrollbars-none; }
+
+
+
 #wrapper.toggled #sidebar-wrapper {
   width:250px;
 }
